@@ -21,3 +21,4 @@ textblob==0.15.2
 tweepy==3.8.0
 psycopg2-binary==2.8.3
 Flask==1.1.1
+Cython
