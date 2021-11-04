@@ -115,7 +115,7 @@ cur.close()
 
 '''
 
-auth  = tweepy.OAuthHandler(configuration.API_KEY, configuration.API_SECRET_ )
+auth  = tweepy.OAuthHandler(configuration.API_KEY, configuration.API_SECRET_KEY)
 auth.set_access_token(configuration.ACCESS_TOKEN, configuration.ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
