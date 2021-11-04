@@ -1,5 +1,5 @@
 # This is Main function.
-# Extracting streaming data from Twitter, pre-processing, and loading into MySQL
+# Extracting streaming do ata from Twitter, pre-processing, and loading intMySQL
 import configuration # Import api/access_token keys from credentials.py
 import settings # Import related setting constants from settings.py 
 import os
@@ -115,8 +115,8 @@ cur.close()
 
 '''
 
-auth  = tweepy.OAuthHandler(configuration.API_KEY, configuration.API_SECRET_KEY)
-auth.set_access_token(configuration.ACCESS_TOEKN, configuration.ACCESS_TOKEN_SECRET)
+auth  = tweepy.OAuthHandler(configuration.API_KEY, configuration.API_SECRET_ )
+auth.set_access_token(configuration.ACCESS_TOKEN, configuration.ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
 myStreamListener = MyStreamListener()
