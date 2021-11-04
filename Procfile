@@ -1,2 +1,2 @@
-worker: python scrapping.py
-web: python scrapping_server.py
+worker: python scraping.py
+web: python scraping_server.py
