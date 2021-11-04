@@ -33,7 +33,7 @@ app.layout = html.Div(children=[
     html.H2('Real-time Twitter Sentiment Analysis for Brand Improvement and Topic Tracking ', style={
         'textAlign': 'center'
     }),
-    html.H4('(Last updated: Aug 23, 2019)', style={
+    html.H4('(Last updated: Aug 23, 2021)', style={
         'textAlign': 'right'
     }),
     
