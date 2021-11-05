@@ -102,7 +102,7 @@ cur = conn.cursor()
 '''
 Check if this table exits. If not, then create a new one.
 '''
-'''
+
 cur.execute("""
         SELECT COUNT(*)
         FROM information_schema.tables
@@ -113,7 +113,6 @@ if cur.fetchone()[0] == 0:
     conn.commit()
 cur.close()
 
-'''
 
 auth  = tweepy.OAuthHandler(configuration.API_KEY, configuration.API_SECRET_KEY)
 auth.set_access_token(configuration.ACCESS_TOKEN, configuration.ACCESS_TOKEN_SECRET)
