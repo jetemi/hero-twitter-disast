@@ -1,2 +1,2 @@
 worker: python scraping.py
-web: python scraping_server.py
+web: gunicorn app:server
