@@ -108,7 +108,7 @@ cur.execute("""
         FROM information_schema.tables
         WHERE table_name = '{0}'
         """.format(settings.TABLE_NAME))
-if cur.fetchone()[0] == 0:
+if cur.fetchone()[0] != 1:
     cur.execute("CREATE TABLE {} ({});".format(settings.TABLE_NAME, settings.TABLE_ATTRIBUTES))
     conn.commit()
 cur.close()
