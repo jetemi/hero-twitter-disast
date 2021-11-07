@@ -30,7 +30,7 @@ app.title = 'Real-Time Twitter Monitor'
 server = app.server
 
 app.layout = html.Div(children=[
-    html.H2('Real-time Twitter Sentiment Analysis for Brand Improvement and Topic Tracking ', style={
+    html.H2('Real-time Twitter Sentiment Analysis for Disaster Tracking ', style={
         'textAlign': 'center'
     }),
     html.H4('(Last updated: Aug 23, 2021)', style={
@@ -45,7 +45,7 @@ app.layout = html.Div(children=[
     html.Div(
         className='row',
         children=[ 
-            dcc.Markdown("__Author's Words__: Dive into the industry and get my hands dirty. That's why I start this self-motivated independent project. If you like it, I would appreciate for starring⭐️ my project on [GitHub](https://github.com/Chulong-Li/Real-time-Sentiment-Tracking-on-Twitter-for-Brand-Improvement-and-Trend-Recognition)!✨"),
+            dcc.Markdown("__Author's Words__: In partial fulfillment of the requirement for the award of Higher National Diploma (HND) in Computer Science. If you like it, I would appreciate you starring⭐️ my project on [GitHub](https://github.com/jetemi/hero-twitter-disast/tree/master)!✨"),
         ],style={'width': '35%', 'marginLeft': 70}
     ),
     html.Br(),
@@ -74,7 +74,7 @@ app.layout = html.Div(children=[
                     ),
                     html.A(
                         'GitHub',
-                        href='https://github.com/Chulong-Li/Real-time-Sentiment-Tracking-on-Twitter-for-Brand-Improvement-and-Trend-Recognition'
+                        href='https://github.com/jetemi/hero-twitter-disast/tree/master'
                     )                    
                 ]
             ),
@@ -97,8 +97,8 @@ app.layout = html.Div(children=[
                     'Author:'
                     ),
                     html.A(
-                        'Chulong Li',
-                        href='https://www.linkedin.com/in/chulong-li/'
+                        'Fadare Michael',
+                        href='https://www.linkedin.com/in/fadaremichael/'
                     )                    
                 ]
             )                                                          
