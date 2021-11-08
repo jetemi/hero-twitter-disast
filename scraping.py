@@ -100,8 +100,6 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 
-cur.execute("CREATE TABLE {} ({});".format(settings.BACKUP, settings.BACKUP_ATTRIBUTES))
-conn.commit()
 '''
 Check if this table exits. If not, then create a new one.
 '''
@@ -113,6 +111,7 @@ cur.execute("""
         """.format(settings.TABLE_NAME))
 if cur.fetchone()[0] != 1:
     cur.execute("CREATE TABLE {} ({});".format(settings.TABLE_NAME, settings.TABLE_ATTRIBUTES))
+    cur.execute("CREATE TABLE {} ({});".format(settings.BACKUP, settings.BACKUP_ATTRIBUTES))
     conn.commit()
 '''    
 cur.close()
