@@ -298,7 +298,7 @@ def update_graph_live(n):
 
                         html.Div(
                             children=[
-                                html.P("Currently tracking \"Facebook\" brand (NASDAQ: FB) on Twitter in Pacific Daylight Time (PDT).",
+                                html.P("Currently tracking \"Disasters\" on Twitter in Pacific Daylight Time (PDT).",
                                     style={
                                         'fontSize': 25
                                     }
