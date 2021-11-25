@@ -149,7 +149,7 @@ def update_graph_live(n):
     daily_impressions = back_up['impressions'].iloc[0] + df[df['created_at'] > (datetime.datetime.now() - datetime.timedelta(hours=7, seconds=10))]['user_followers_count'].sum()
     cur = conn.cursor()
 
-    UTC_now = datetime.datetime.now() #- datetime.timedelta(hours=7)
+    UTC_now = datetime.datetime.now() - datetime.timedelta(hours=0)
     if UTC_now.strftime("%H%M")=='0000':
         cur.execute("UPDATE Back_Up SET daily_tweets_num = 0, impressions = 0;")
     else:
