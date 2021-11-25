@@ -45,7 +45,7 @@ app.layout = html.Div(children=[
     html.Div(
         className='row',
         children=[ 
-            dcc.Markdown("__Author's Words__: In partial fulfillment of the requirement for the award of Higher National Diploma (HND) in Computer Science. If you like it, I would appreciate you starring⭐️ my project on [GitHub](https://github.com/jetemi/hero-twitter-disast/tree/master)!✨"),
+            dcc.Markdown("__Author's Words__: In partial fulfillment of the requirement for the award of Higher National Diploma (HND) in Computer Science."),
         ],style={'width': '35%', 'marginLeft': 70}
     ),
     html.Br(),
