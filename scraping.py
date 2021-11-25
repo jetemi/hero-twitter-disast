@@ -107,7 +107,7 @@ Check if this table exits. If not, then create a new one.
 cur.execute("""
         SELECT COUNT(*)
         FROM information_schema.tables
-        WHERE table_name = '{0}'
+        WHERE table_name = '{}'
         """.format(settings.TABLE_NAME))
 if cur.fetchone()[0] != 1:
     cur.execute("CREATE TABLE {} ({});".format(settings.TABLE_NAME, settings.TABLE_ATTRIBUTES))
