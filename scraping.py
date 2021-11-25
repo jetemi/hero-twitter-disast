@@ -103,7 +103,7 @@ cur = conn.cursor()
 '''
 Check if this table exits. If not, then create a new one.
 '''
-'''
+
 cur.execute("""
         SELECT COUNT(*)
         FROM information_schema.tables
@@ -113,7 +113,7 @@ if cur.fetchone()[0] != 1:
     cur.execute("CREATE TABLE {} ({});".format(settings.TABLE_NAME, settings.TABLE_ATTRIBUTES))
     cur.execute("CREATE TABLE {} ({});".format(settings.BACKUP, settings.BACKUP_ATTRIBUTES))
     conn.commit()
-'''    
+    
 cur.close()
 
 
