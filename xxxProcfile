@@ -1,0 +1,2 @@
+web: gunicorn app:server
+web: python scraping_server.py
