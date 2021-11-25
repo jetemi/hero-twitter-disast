@@ -101,8 +101,8 @@ app.layout = html.Div(children=[
             #             'Fadare Michael',
             #             href='https://www.linkedin.com/in/fadaremichael/'
             #         )                    
-                ]
-            )                                                          
+            #    ]
+            #)                                                          
         ], style={'marginLeft': 70, 'fontSize': 16}
     ),
 
