@@ -138,9 +138,9 @@ def update_graph_live(n):
     min10 = datetime.datetime.now() - datetime.timedelta(hours=0, minutes=5)
     min20 = datetime.datetime.now() - datetime.timedelta(hours=0, minutes=10)
 
-    neu_num = result[result['Time']<min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==0].sum()
-    neg_num = result[result['Time']<min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==-1].sum()
-    pos_num = result[result['Time']<min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==1].sum()
+    neu_num = result[result['Time']>min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==0].sum()
+    neg_num = result[result['Time']>min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==-1].sum()
+    pos_num = result[result['Time']>min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==1].sum()
     
     # Loading back-up summary data
     query = "SELECT daily_user_num, daily_tweets_num, impressions FROM Back_Up;"
@@ -173,6 +173,7 @@ def update_graph_live(n):
                                 'data': [
                                     go.Scatter(
                                         x=time_series,
+                                        # x=result["Time"], #time_series,
                                         y=result["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==0].reset_index(drop=True),
                                         name="Neutrals",
                                         opacity=0.8,
@@ -182,6 +183,7 @@ def update_graph_live(n):
                                     ),
                                     go.Scatter(
                                         x=time_series,
+                                        # x=result["Time"], #time_series,
                                         y=result["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==-1].reset_index(drop=True).apply(lambda x: -x),
                                         name="Negatives",
                                         opacity=0.8,
@@ -191,6 +193,7 @@ def update_graph_live(n):
                                     ),
                                     go.Scatter(
                                         x=time_series,
+                                        # x=result["Time"], #time_series,
                                         y=result["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==1].reset_index(drop=True),
                                         name="Positives",
                                         opacity=0.8,
