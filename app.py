@@ -128,15 +128,15 @@ def update_graph_live(n):
 
 
     # Convert UTC into PDT
-    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x - datetime.timedelta(hours=0))
+    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x - datetime.timedelta(hours=7))
 
     # Clean and transform data to enable time series
-    result = df.groupby([pd.Grouper(key='created_at', freq='2s'), 'polarity']).count().unstack(fill_value=0).stack().reset_index()
+    result = df.groupby([pd.Grouper(key='created_at', freq='10s'), 'polarity']).count().unstack(fill_value=0).stack().reset_index()
     result = result.rename(columns={"id_str": "Num of '{}' mentions".format(settings.TRACK_WORDS[0]), "created_at":"Time"})  
     time_series = result["Time"][result['polarity']==0].reset_index(drop=True)
 
-    min10 = datetime.datetime.now() - datetime.timedelta(hours=0, minutes=5)
-    min20 = datetime.datetime.now() - datetime.timedelta(hours=0, minutes=10)
+    min10 = datetime.datetime.now() - datetime.timedelta(hours=7, minutes=10)
+    min20 = datetime.datetime.now() - datetime.timedelta(hours=7, minutes=20)
 
     neu_num = result[result['Time']>min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==0].sum()
     neg_num = result[result['Time']>min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==-1].sum()
@@ -149,7 +149,7 @@ def update_graph_live(n):
     daily_impressions = back_up['impressions'].iloc[0] + df[df['created_at'] > (datetime.datetime.now() - datetime.timedelta(hours=7, seconds=10))]['user_followers_count'].sum()
     cur = conn.cursor()
 
-    UTC_now = datetime.datetime.now() - datetime.timedelta(hours=-1)
+    UTC_now = datetime.datetime.now() - datetime.timedelta(hours=7)
     if UTC_now.strftime("%H%M")=='0000':
         cur.execute("UPDATE Back_Up SET daily_tweets_num = 0, impressions = 0;")
     else:
@@ -333,7 +333,7 @@ def update_graph_bottom_live(n):
     conn.close()
 
     # Convert UTC into PDT
-    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x - datetime.timedelta(hours=0))
+    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x - datetime.timedelta(hours=7))
 
     # Clean and transform data to enable word frequency
     content = ' '.join(df["text"])
