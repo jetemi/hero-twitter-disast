@@ -1,5 +1,5 @@
-API_KEY = 'sFYESb0FsI9SdpDCnItfpRmrfd3ivB2'
-API_SECRET_KEY = 's8pz1MHYCHVx5efs3z77g40E5FYtQBdmQVYMBeS2HChN0fOWfftn1sL'
+API_KEY = 'sFdfgESb0FsI9SdydfgpDCnItfpRmrfdsdfg3ivB2'
+API_SECRET_KEY = 's8psdfg1MHYCHVx5efs3zsfg7g40E5FYtQBdmQVsfdgeS2HChN0fOWfsdfgftn1sL'
 
-ACCESS_TOKEN = '33692sd3231-SoRaTofB56iWIdQCcgiUyC6Qha1AG0i4hNQdNYum'
-ACCESS_TOKEN_SECRET = 'tnJtwg2EcVEthAcsdfg99elcjGfBfOulw6IgXGFg'
+ACCESS_TOKEN = '3369sdf2sd3231-sfgSoRaTofB56iWIdQCcsfgyC6Qha1AGsdf0i4hNQdsfdgNYum'
+ACCESS_TOKEN_SECRET = 'tnJtsfgwg2EcVEthAcsdsfdg99elcjGsdfgfBfOulw6IgXsfgGFg'
