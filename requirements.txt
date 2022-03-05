@@ -23,3 +23,4 @@ Flask==1.1.1
 psycopg2
 Cython
 pandas
+pydantic==1.9.0

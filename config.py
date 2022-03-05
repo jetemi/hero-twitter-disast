@@ -1,5 +1,12 @@
-API_KEY = 'FYESb0FI9SpDCnItpRmr3ivB2'
-API_SECRET_KEY = '8pz1MHYCHVx5es3z77g40E5FYtQBwmQVYMBS2HChN0OWftn1sL'
+from pydantic import BaseSettings
 
-ACCESS_TOKEN = '336923231-SoRaToB56iWIdQCcGiUyC6QLm7a1AG0i4fNQNYum'
-ACCESS_TOKEN_SECRET = 'tnJt2EcVEdAc99elc91yPW9ZSNGBfOulw6IXGFz7D7k23'
+class Settings(BaseSettings):
+    api_key: str
+    api_secret_key: str
+    access_token: str
+    access_token_secret: str
+
+    class Config:
+        env_file = ".env"
+
+settings = Settings()
