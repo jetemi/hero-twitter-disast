@@ -1,3 +1,0 @@
-web: gunicorn app:server
-web: python scraping_server.py
-New line should not be checked to git
