@@ -2,5 +2,9 @@ venv/
 *.pyc
 .DS_Store
 xxxProcfile
+Main.ipynb
+Trend_Analysis_Complex.ipynb
+Analysis_for_Topic_Trend.ipynb
 xxxapp.py
+comments
 .env
