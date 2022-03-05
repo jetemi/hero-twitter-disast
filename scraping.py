@@ -1,6 +1,6 @@
 # This is Main function.
 # Extracting streaming do ata from Twitter, pre-processing, and loading intMySQL
-from .config import settings
+from config import settings
 import dbsettings # Import related setting constants from settings.py 
 import os
 import psycopg2
