@@ -4,7 +4,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
 import plotly.graph_objs as go
-import settings
+import dbsettings
 import itertools
 import math
 import base64
@@ -122,7 +122,7 @@ def update_graph_live(n):
     # Loading data from Heroku PostgreSQL
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    query = "SELECT id_str, text, created_at, polarity, user_location, user_followers_count FROM {}".format(settings.TABLE_NAME)
+    query = "SELECT id_str, text, created_at, polarity, user_location, user_followers_count FROM {}".format(dbsettings.TABLE_NAME)
     df = pd.read_sql(query, con=conn)
 
 
@@ -131,20 +131,20 @@ def update_graph_live(n):
 
     # Clean and transform data to enable time series
     result = df.groupby([pd.Grouper(key='created_at', freq='10s'), 'polarity']).count().unstack(fill_value=0).stack().reset_index()
-    result = result.rename(columns={"id_str": "Num of '{}' mentions".format(settings.TRACK_WORDS[0]), "created_at":"Time"})  
+    result = result.rename(columns={"id_str": "Num of '{}' mentions".format(dbsettings.TRACK_WORDS[0]), "created_at":"Time"})  
     time_series = result["Time"][result['polarity']==0].reset_index(drop=True)
 
     min10 = datetime.datetime.now() - datetime.timedelta(hours=7, minutes=10)
     min20 = datetime.datetime.now() - datetime.timedelta(hours=7, minutes=20)
 
-    neu_num = result[result['Time']>min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==0].sum()
-    neg_num = result[result['Time']>min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==-1].sum()
-    pos_num = result[result['Time']>min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==1].sum()
+    neu_num = result[result['Time']>min10]["Num of '{}' mentions".format(dbsettings.TRACK_WORDS[0])][result['polarity']==0].sum()
+    neg_num = result[result['Time']>min10]["Num of '{}' mentions".format(dbsettings.TRACK_WORDS[0])][result['polarity']==-1].sum()
+    pos_num = result[result['Time']>min10]["Num of '{}' mentions".format(dbsettings.TRACK_WORDS[0])][result['polarity']==1].sum()
     
     # Loading back-up summary data
     query = "SELECT daily_user_num, daily_tweets_num, impressions FROM Back_Up;"
     back_up = pd.read_sql(query, con=conn)  
-    daily_tweets_num = back_up['daily_tweets_num'].iloc[0] + result[-6:-3]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])].sum()
+    daily_tweets_num = back_up['daily_tweets_num'].iloc[0] + result[-6:-3]["Num of '{}' mentions".format(dbsettings.TRACK_WORDS[0])].sum()
     daily_impressions = back_up['impressions'].iloc[0] + df[df['created_at'] > (datetime.datetime.now() - datetime.timedelta(hours=7, seconds=10))]['user_followers_count'].sum()
     cur = conn.cursor()
 
@@ -172,7 +172,7 @@ def update_graph_live(n):
                                 'data': [
                                     go.Scatter(
                                         x=time_series,
-                                        y=result["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==0].reset_index(drop=True),
+                                        y=result["Num of '{}' mentions".format(dbsettings.TRACK_WORDS[0])][result['polarity']==0].reset_index(drop=True),
                                         name="Neutrals",
                                         opacity=0.8,
                                         mode='lines',
@@ -181,7 +181,7 @@ def update_graph_live(n):
                                     ),
                                     go.Scatter(
                                         x=time_series,
-                                        y=result["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==-1].reset_index(drop=True).apply(lambda x: -x),
+                                        y=result["Num of '{}' mentions".format(dbsettings.TRACK_WORDS[0])][result['polarity']==-1].reset_index(drop=True).apply(lambda x: -x),
                                         name="Negatives",
                                         opacity=0.8,
                                         mode='lines',
@@ -190,7 +190,7 @@ def update_graph_live(n):
                                     ),
                                     go.Scatter(
                                         x=time_series,
-                                        y=result["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][result['polarity']==1].reset_index(drop=True),
+                                        y=result["Num of '{}' mentions".format(dbsettings.TRACK_WORDS[0])][result['polarity']==1].reset_index(drop=True),
                                         name="Positives",
                                         opacity=0.8,
                                         mode='lines',
@@ -324,7 +324,7 @@ def update_graph_bottom_live(n):
     # Loading data from Heroku PostgreSQL
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    query = "SELECT id_str, text, created_at, polarity, user_location FROM {}".format(settings.TABLE_NAME)
+    query = "SELECT id_str, text, created_at, polarity, user_location FROM {}".format(dbsettings.TABLE_NAME)
     df = pd.read_sql(query, con=conn)
     conn.close()
 

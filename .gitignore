@@ -1,4 +1,13 @@
-venv
+venv/
+app/
+.vs/
+dash_app/
 *.pyc
 .DS_Store
+xxxProcfile
+Trend_Analysis_Complex.ipynb
+Analysis_for_Topic_Trend.ipynb
+Main.ipynb
+xxxapp.py
+comments
 .env

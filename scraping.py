@@ -1,7 +1,7 @@
 # This is Main function.
 # Extracting streaming do ata from Twitter, pre-processing, and loading intMySQL
-import configuration # Import api/access_token keys from credentials.py
-import settings # Import related setting constants from settings.py 
+from config import settings # Import api/access_token keys from credentials.py
+import dbsettings # Import related setting constants from dbsettings.py 
 import os
 import psycopg2
 import re
@@ -51,7 +51,7 @@ class MyStreamListener(tweepy.StreamListener):
         
         # Store all data in Heroku PostgreSQL
         cur = conn.cursor()
-        sql = "INSERT INTO {} (id_str, created_at, text, polarity, subjectivity, user_created_at, user_location, user_description, user_followers_count, longitude, latitude, retweet_count, favorite_count) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)".format(settings.TABLE_NAME)
+        sql = "INSERT INTO {} (id_str, created_at, text, polarity, subjectivity, user_created_at, user_location, user_description, user_followers_count, longitude, latitude, retweet_count, favorite_count) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)".format(dbsettings.TABLE_NAME)
         val = (id_str, created_at, text, polarity, subjectivity, user_created_at, user_location, \
             user_description, user_followers_count, longitude, latitude, retweet_count, favorite_count)
         cur.execute(sql, val)
@@ -64,7 +64,7 @@ class MyStreamListener(tweepy.StreamListener):
             FROM {0}
             ORDER BY created_at asc
             LIMIT 200) AND (SELECT COUNT(*) FROM Disaster) > 9600;
-        '''.format(settings.TABLE_NAME)
+        '''.format(dbsettings.TABLE_NAME)
         
         cur.execute(delete_query)
         conn.commit()
@@ -108,22 +108,22 @@ cur.execute("""
         SELECT COUNT(*)
         FROM information_schema.tables
         WHERE table_name = '{0}'
-        """.format(settings.TABLE_NAME))
+        """.format(dbsettings.TABLE_NAME))
 if cur.fetchone()[0] != 1:
-    cur.execute("CREATE TABLE {} ({});".format(settings.TABLE_NAME, settings.TABLE_ATTRIBUTES))
-    cur.execute("CREATE TABLE {} ({});".format(settings.BACKUP, settings.BACKUP_ATTRIBUTES))
+    cur.execute("CREATE TABLE {} ({});".format(dbsettings.TABLE_NAME, dbsettings.TABLE_ATTRIBUTES))
+    cur.execute("CREATE TABLE {} ({});".format(dbsettings.BACKUP, dbsettings.BACKUP_ATTRIBUTES))
     conn.commit()
 '''    
 cur.close()
 
 
-auth  = tweepy.OAuthHandler(configuration.API_KEY, configuration.API_SECRET_KEY)
-auth.set_access_token(configuration.ACCESS_TOKEN, configuration.ACCESS_TOKEN_SECRET)
+auth  = tweepy.OAuthHandler(settings.API_KEY, settings.API_SECRET_KEY)
+auth.set_access_token(settings.ACCESS_TOKEN, settings.ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
 myStreamListener = MyStreamListener()
 myStream = tweepy.Stream(auth = api.auth, listener = myStreamListener)
-myStream.filter(languages=["en"], track = settings.TRACK_WORDS)
+myStream.filter(languages=["en"], track = dbsettings.TRACK_WORDS)
 # However, this won't be reached as the stream listener won't stop automatically
 # Press STOP button to finish the process.
 conn.close() 
