@@ -1,4 +1,6 @@
-venv
+venv/
 *.pyc
 .DS_Store
+xxxProcfile
+xxxapp.py
 .env
